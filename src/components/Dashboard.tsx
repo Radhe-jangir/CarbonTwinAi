@@ -160,7 +160,7 @@ drop-shadow-[0_0_15px_rgba(16,185,129,0.5)]
         }}
         initial="hidden"
         animate="show"
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4"
       >
         {/* Card 1: User Persona */}
         <motion.div

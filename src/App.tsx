@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import logo from "/assets/logo.png";
+import carbonBg from "/assets/carbon-bg.jpg";
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   AppWindow, LayoutDashboard, Sliders, FlaskConical, Target, Award, ShieldCheck, 
@@ -367,7 +368,7 @@ export default function App() {
     <div
   className="min-h-screen text-gray-100 flex flex-col relative overflow-hidden"
   style={{
-    backgroundImage: "url('/assets/carbon-bg.jpg')",
+    backgroundImage: `url(${carbonBg})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundAttachment: "fixed",
