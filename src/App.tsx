@@ -365,7 +365,7 @@ export default function App() {
   }
   {/* Overlay */ }
   {/* <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/35 to-black/60" /> */ }
-  <div className="absolute inset-0 bg-black/40" />
+
   return (
 
     <div
@@ -374,19 +374,22 @@ export default function App() {
         backgroundImage: `url(${carbonBg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
+        
         backgroundAttachment:
           window.innerWidth < 768 ? "scroll" : "fixed",
       }}
+      
     >
+      <div className="absolute inset-0 bg-black/70"></div>
 
 
 
 
       {/* Main Grid Wrapper */}
-      <div className="flex flex-col md:flex-row min-h-screen w-full">
+      <div className="relative z-10 flex flex-col md:flex-row min-h-screen w-full">
 
         {/* Left hand Sidebar */}
-        <aside className="w-full md:w-[260px] bg-zinc-950/90 backdrop-blur-xl border-r border-emerald-500/10 p-4 shrink-0 flex flex-col justify-between hidden md:flex">
+        <aside className="hidden md:flex fixed left-0 top-0 h-screen w-[260px] bg-zinc-950/90 backdrop-blur-xl border-r border-emerald-500/10 p-4 flex-col justify-between z-40">
 
           <div className="space-y-6">
             {/* Logo area */}
@@ -583,7 +586,7 @@ text-black transition"
           )}
         </header>
         {/* Right hand Content Stage Area */}
-        <main className="w-full flex-1 overflow-x-hidden overflow-y-auto p-2 sm:p-4 md:p-8">
+        <main className="w-full md:ml-[260px] flex-1 overflow-x-hidden overflow-y-auto p-2 sm:p-4 md:p-8">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
