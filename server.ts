@@ -167,6 +167,30 @@ app.post("/api/auth/signup", (req, res) => {
     }
   });
 });
+app.delete("/api/carbon/delete-input/:id", (req, res) => {
+  const { id } = req.params;
+
+  const db = loadDatabase();
+  const user = getActiveUser(req, db);
+
+  user.dailyInputs = user.dailyInputs.filter(
+    (item) => item.id !== id
+  );
+
+  saveDatabase(db);
+
+  res.json({
+    success: true,
+    deleted: id
+  });
+});
+
+
+
+
+
+
+
 
 // Authentication: Sign-in API
 app.post("/api/auth/login", (req, res) => {

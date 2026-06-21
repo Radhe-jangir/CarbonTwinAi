@@ -66,7 +66,10 @@ export default function Dashboard({
   };
 
   // Prepare chart format
-  const chartData = history.map(h => ({
+  const cleanHistory = history.filter(
+  h => h.totalCO2e_kg < 1000
+);
+  const chartData = cleanHistory.map(h => ({
     period: h.period,
     Transport: h.transportCO2e_kg,
     Food: h.foodCO2e_kg,
@@ -492,7 +495,9 @@ space-y-4
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-900 text-zinc-300">
-                {dailyInputs.slice().sort((a, b) => b.date.localeCompare(a.date)).map((inp) => {
+                {dailyInputs
+.filter(inp => inp.id !== "input_2023-11-23")
+.slice().sort((a, b) => b.date.localeCompare(a.date)).map((inp) => {
                   const dailyCalc = calculateEmissionsFromDayInput(inp);
                   return (
                     <tr key={inp.id} className="hover:bg-zinc-900/40 transition">
