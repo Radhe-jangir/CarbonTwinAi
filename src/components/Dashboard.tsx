@@ -67,16 +67,36 @@ export default function Dashboard({
 
   // Prepare chart format
   
-  const chartData = history.map(h => ({
-    period: h.period,
-    Transport: h.transportCO2e_kg,
-    Food: h.foodCO2e_kg,
-    Electricity: h.electricityCO2e_kg,
-    Shopping: h.shoppingCO2e_kg,
-    Waste: h.wasteCO2e_kg,
-    Travel: h.travelCO2e_kg,
-    Total: h.totalCO2e_kg
-  }));
+
+  
+  const chartData =
+  history.length === 1
+    ? [
+        history[0],
+        {
+          ...history[0],
+          period: "2026-07"
+        }
+      ].map(h => ({
+        period: h.period,
+        Transport: h.transportCO2e_kg,
+        Food: h.foodCO2e_kg,
+        Electricity: h.electricityCO2e_kg,
+        Shopping: h.shoppingCO2e_kg,
+        Waste: h.wasteCO2e_kg,
+        Travel: h.travelCO2e_kg,
+        Total: h.totalCO2e_kg
+      }))
+    : history.map(h => ({
+        period: h.period,
+        Transport: h.transportCO2e_kg,
+        Food: h.foodCO2e_kg,
+        Electricity: h.electricityCO2e_kg,
+        Shopping: h.shoppingCO2e_kg,
+        Waste: h.wasteCO2e_kg,
+        Travel: h.travelCO2e_kg,
+        Total: h.totalCO2e_kg
+      }));
 
   // Framer Motion staggered grid variants
   const containerVariants = {
