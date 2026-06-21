@@ -343,12 +343,37 @@ app.post("/api/carbon/add-input", (req, res) => {
 // Run What-If Simulation Calculus under isolated accounts
 app.post("/api/carbon/recalculate", (req, res) => {
   const db = loadDatabase();
+  const user = getActiveUser(req, db);
+
+  // Clear old engineered history
+  user.engineeredHistory = [];
+
+  // Get unique months
+  const periods = [
+    ...new Set(
+      user.dailyInputs.map(input => input.date.slice(0, 7))
+    )
+  ];
+
+  // Rebuild every month
+  periods.forEach(period => {
+    const monthlyInputs = user.dailyInputs.filter(
+      input => input.date.startsWith(period)
+    );
+
+    const aggregated = aggregateMonthlyFeatures(
+      monthlyInputs,
+      period
+    );
+
+    user.engineeredHistory.push(aggregated);
+  });
 
   saveDatabase(db);
 
   res.json({
     success: true,
-    message: "Refresh completed"
+    message: "History rebuilt successfully"
   });
 });
 
