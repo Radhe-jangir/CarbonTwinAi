@@ -185,7 +185,8 @@ app.delete("/api/carbon/delete-input/:id", (req, res) => {
     )
   ];
 
-  user.engineeredHistory = periods.map(period => {
+  user.engineeredHistory = periods
+  .map(period => {
     const monthlyInputs = user.dailyInputs.filter(
       i => i.date.startsWith(period)
     );
@@ -194,7 +195,8 @@ app.delete("/api/carbon/delete-input/:id", (req, res) => {
       monthlyInputs,
       period
     );
-  });
+  })
+  .filter(h => h.totalCO2e_kg < 5000);
 
   saveDatabase(db);
 
@@ -370,22 +372,24 @@ app.post("/api/carbon/recalculate", (req, res) => {
     )
   ];
 
-  user.engineeredHistory = periods.map(period => {
-    const monthlyInputs = user.dailyInputs.filter(
-      i => i.date.startsWith(period)
-    );
+  user.engineeredHistory = periods
+    .map(period => {
+      const monthlyInputs = user.dailyInputs.filter(
+        i => i.date.startsWith(period)
+      );
 
-    return aggregateMonthlyFeatures(
-      monthlyInputs,
-      period
-    );
-  });
+      return aggregateMonthlyFeatures(
+        monthlyInputs,
+        period
+      );
+    })
+    .filter(h => h.totalCO2e_kg < 5000); // remove garbage history
 
   saveDatabase(db);
 
   res.json({
     success: true,
-    message: "Refresh completed"
+    message: "History rebuilt"
   });
 });
 

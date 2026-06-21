@@ -66,10 +66,8 @@ export default function Dashboard({
   };
 
   // Prepare chart format
-  const cleanHistory = history.filter(
-  h => h.totalCO2e_kg < 1000
-);
-  const chartData = cleanHistory.map(h => ({
+  
+  const chartData = history.map(h => ({
     period: h.period,
     Transport: h.transportCO2e_kg,
     Food: h.foodCO2e_kg,
